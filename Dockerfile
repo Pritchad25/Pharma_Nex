@@ -1,36 +1,25 @@
-# Start from Ubuntu 20.04
-FROM ubuntu:20.04
-
-# Avoid interactive prompts during package installs
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Update and install basic tools
-RUN apt-get update && apt-get install -y \
-    bash git curl build-essential \
-    && rm -rf /var/lib/apt/lists/*
-
-# Use a small, stable base for Node apps
-FROM node:18-bullseye-slim
-
-# Create app directory and set working dir
+# ---------- Base stage: shared by dev & prod ----------
+FROM node:18-bullseye-slim AS base
 WORKDIR /workspace
-
-# Copy package manifests first (for layer caching)
 COPY package*.json ./
 
-# Install production dependencies (use npm ci for reproducible installs)
-RUN npm ci --only=production
-
-# Copy application source
+# ---------- Development stage ----------
+FROM base AS development
+ENV NODE_ENV=development
+# Full install — includes nodemon, jest (devDependencies)
+RUN npm install
 COPY . .
+EXPOSE 3000
+CMD ["npm", "run", "dev"]
 
-# Expose the port your app listens on
-EXPOSE 8080
-
-# Use a non-root user for better security (optional but recommended)
+# ---------- Production stage ----------
+FROM base AS production
+ENV NODE_ENV=production
+# Only production deps — smaller, more secure image
+RUN npm ci --omit=dev
+COPY . .
 RUN useradd --user-group --create-home --shell /bin/bash appuser \
  && chown -R appuser:appuser /workspace
 USER appuser
-
-# Default command to start the app
-CMD ["node", "index.js"]
+EXPOSE 3000
+CMD ["node", "backend/server.js"]
