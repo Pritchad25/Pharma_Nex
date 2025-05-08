@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      target: development
+    container_name: pharmanex-dev
+    ports:
+      - "3000:3000"          # host:container — THIS is what makes localhost:3000 reach the container
+    volumes:
+      - .:/workspace           # bind mount — edits on host instantly reflected in container
+      - /workspace/node_modules # anonymous volume — keeps container's own node_modules, avoids host/OS conflicts
+    env_file:
+      - .env
+    command: npm run dev
