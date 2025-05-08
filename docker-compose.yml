@@ -4,6 +4,9 @@ services:
       context: .
       target: development
     container_name: pharmanex-dev
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     ports:
       - "3000:3000"          # host:container — THIS is what makes localhost:3000 reach the container
     volumes:
