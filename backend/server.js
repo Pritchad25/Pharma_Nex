@@ -1,15 +1,26 @@
-const express = require('express');
-const mongoose = require('mongoose'); 
-const app = express(); 
-const PORT = process.env.PORT || 3000;
+/**
+ * @file Application entry point.
+ * @description Connects to MongoDB and starts the Express server.
+ * Route/middleware config lives in app.js, not here.
+ */
 
-// Definition of the GET route for the root URL
+ 
+ const mongoose = require('mongoose');
+ const app = require('./app');
+ require('dotenv').config(); //Loading the .env file before accessing `process.env`
+ const PORT = process.env.PORT || 3000;
+
+/**Definition of the GET route for the root URL
 app.get('/', (req, res) => {
 	res.send('PharmaNex Server is running');
 });
+*/
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_TEST_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
