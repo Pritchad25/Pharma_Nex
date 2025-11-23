@@ -23,20 +23,20 @@ PharmaNex is a digital health platform that connects patients directly with lice
 ---
 
 ## 📂 Project Structure
-PHARMA_NEX/
-├── src/                # Platform source code
-│   ├── controllers/    # Route handlers
-│   ├── models/         # Database models (e.g.Mongoose)
-│   ├── routes/         # API endpoints
-│   ├── services/       # Business logic
-│   └── utils/          # Helper functions
-├── config/             # Environment configs (db, API keys)
-├── tests/              # Unit/integration tests
-├── .env.example        # Example environment variables
-├── .gitignore          # Ignore node_modules, secrets, logs
-├── package.json        # Dependencies and scripts
-├── README.md           # Documentation
-└── LICENSE             # License
+pharmanex_backend/
+- ── src/                # Platform source code
+    - ─ controllers/    # Route handlers
+    - models/         # Database models (e.g.Mongoose)
+    - routes/         # API endpoints
+    - services/       # Business logic
+    - utils/          # Helper functions
+- config/             # Environment configs (db, API keys)
+- tests/              # Unit/integration tests
+- .env.example        # Example environment variables
+- .gitignore          # Ignore node_modules, secrets, logs
+- package.json        # Dependencies and scripts
+- README.md           # Documentation
+- LICENSE             # License
 
 ---
 
@@ -63,7 +63,7 @@ PHARMA_NEX/
 ## API Endpoints
 Patient App API endpoints
 | Method | Endpoint | Description |
-| ------- | ----------- |
+| ------- | --------- | ----------- |
 | POST   | /api/patients/login | Patient authentication |
 | GET    | /api/pharmacies/nearby | Find pharmacies (geolocation) |
 | POST   | /api/orders | Create new order |
@@ -72,7 +72,7 @@ Patient App API endpoints
 
 Pharmacy Portal API Endpoints
 | Method | Endpoint | Description |
-| ------- | ----------- |
+| ------- | --------- | ----------- |
 | POST | /api/pharmacies/register | Pharmacy onboarding |
 | GET | /api/orders | View incoming orders |
 | PATCH | /api/orders/:id/status | Update order status |
@@ -81,7 +81,7 @@ Pharmacy Portal API Endpoints
 
 Driver API endpoints
 | Method | Endpoint | Description |
-| ------- | ----------- |
+| ------- | --------- | ---------- |
 | POST | /api/drivers/register | Driver registration |
 | GET | /api/deliveries/available | Get available deliveries |
 | POST | /api/deliveries/:id/accept | Accept delivery |
